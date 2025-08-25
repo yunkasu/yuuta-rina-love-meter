@@ -97,6 +97,32 @@ header h1 {
 #yuuta .character-head {
     background: linear-gradient(145deg, #ffd54f, #ffb74d);
     border: 3px solid #ff8a65;
+    position: relative;
+}
+
+#yuuta .character-head::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    right: 15px;
+    height: 35px;
+    background: linear-gradient(145deg, #3f51b5, #1a237e);
+    border-radius: 20px 20px 5px 5px;
+    z-index: -1;
+}
+
+#yuuta .character-head::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 25px;
+    height: 20px;
+    background: linear-gradient(145deg, #3f51b5, #1a237e);
+    border-radius: 50%;
+    transform: rotate(-10deg);
+    z-index: -1;
 }
 
 #rina .character-head {
@@ -106,11 +132,11 @@ header h1 {
 
 #rina .hair {
     position: absolute;
-    top: -10px;
-    left: 10px;
-    right: 10px;
-    height: 40px;
-    background: linear-gradient(145deg, #8e24aa, #ab47bc);
+    top: -15px;
+    left: 5px;
+    right: 5px;
+    height: 45px;
+    background: linear-gradient(145deg, #e1bee7, #ba68c8);
     border-radius: 50px 50px 30px 30px;
     z-index: -1;
 }
@@ -119,19 +145,31 @@ header h1 {
 #rina .hair::after {
     content: '';
     position: absolute;
-    width: 25px;
-    height: 25px;
-    background: inherit;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(145deg, #e1bee7, #ba68c8);
     border-radius: 50%;
-    top: 5px;
+    top: 3px;
 }
 
 #rina .hair::before {
-    left: -15px;
+    left: -20px;
+    box-shadow: 0 0 5px rgba(186, 104, 200, 0.5);
 }
 
 #rina .hair::after {
-    right: -15px;
+    right: -20px;
+    box-shadow: 0 0 5px rgba(186, 104, 200, 0.5);
+}
+
+#rina .character-head::after {
+    content: '🎀';
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    font-size: 20px;
+    z-index: 1;
+    animation: sparkle 2s ease-in-out infinite;
 }
 
 .eyes {
@@ -190,13 +228,66 @@ header h1 {
 }
 
 #yuuta .character-body-torso {
-    background: linear-gradient(145deg, #42a5f5, #1e88e5);
+    background: linear-gradient(145deg, #37474f, #263238);
     border: 3px solid #1976d2;
+    position: relative;
+}
+
+#yuuta .character-body-torso::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    right: 10px;
+    height: 20px;
+    background: linear-gradient(145deg, #2196f3, #1976d2);
+    border-radius: 20px;
+    border: 2px solid #0d47a1;
+}
+
+#yuuta .character-body-torso::after {
+    content: '⚡';
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffc107;
+    font-size: 16px;
+    text-shadow: 0 0 10px #ffc107;
 }
 
 #rina .character-body-torso {
-    background: linear-gradient(145deg, #f48fb1, #e91e63);
-    border: 3px solid #c2185b;
+    background: linear-gradient(145deg, #fce4ec, #f8bbd9);
+    border: 3px solid #e91e63;
+    position: relative;
+    overflow: visible;
+}
+
+#rina .character-body-torso::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    right: 5px;
+    height: 15px;
+    background: linear-gradient(145deg, #ff69b4, #e91e63);
+    border-radius: 15px;
+    border: 1px solid #c2185b;
+}
+
+#rina .character-body-torso::after {
+    content: '💎';
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+#rina .character-body-torso {
+    border-radius: 30px 30px 50px 50px;
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
 }
 
 .character-name {
@@ -415,9 +506,21 @@ header h1 {
     
     .game-area {
         flex-direction: column;
-        gap: 40px;
+        gap: 30px;
         padding: 20px;
         min-height: 500px;
+    }
+    
+    #yuuta {
+        order: 1;
+    }
+    
+    .heart-container {
+        order: 2;
+    }
+    
+    #rina {
+        order: 3;
     }
     
     .character-head {

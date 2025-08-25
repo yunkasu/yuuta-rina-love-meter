@@ -119,19 +119,36 @@ class LoveMeter {
     
     updateCharacterPositions() {
         const progress = this.loveLevel / this.maxLevel;
-        const maxMove = 150;
-        const moveDistance = progress * maxMove;
+        const isMobile = window.innerWidth <= 768;
         
         this.elements.yuuta.classList.add('moving');
         this.elements.rina.classList.add('moving');
         
-        this.elements.yuuta.style.transform = `translateX(${moveDistance}px)`;
-        this.elements.rina.style.transform = `translateX(-${moveDistance}px)`;
+        if (isMobile) {
+            // スマホでは近づく（gap を小さくする）
+            const maxGapReduction = 20;
+            const gapReduction = progress * maxGapReduction;
+            
+            this.elements.yuuta.style.transform = `translateY(${gapReduction}px) scale(${1 + progress * 0.1})`;
+            this.elements.rina.style.transform = `translateY(-${gapReduction}px) scale(${1 + progress * 0.1})`;
+        } else {
+            // デスクトップでは近づく（中央に向かって移動）
+            const maxMove = 100;
+            const moveDistance = progress * maxMove;
+            
+            this.elements.yuuta.style.transform = `translateX(${moveDistance}px) scale(${1 + progress * 0.1})`;
+            this.elements.rina.style.transform = `translateX(-${moveDistance}px) scale(${1 + progress * 0.1})`;
+        }
         
         if (progress >= 1) {
             setTimeout(() => {
-                this.elements.yuuta.style.transform = `translateX(${maxMove}px) scale(1.1)`;
-                this.elements.rina.style.transform = `translateX(-${maxMove}px) scale(1.1)`;
+                if (isMobile) {
+                    this.elements.yuuta.style.transform = `translateY(20px) scale(1.2)`;
+                    this.elements.rina.style.transform = `translateY(-20px) scale(1.2)`;
+                } else {
+                    this.elements.yuuta.style.transform = `translateX(100px) scale(1.2)`;
+                    this.elements.rina.style.transform = `translateX(-100px) scale(1.2)`;
+                }
             }, 500);
         }
     }

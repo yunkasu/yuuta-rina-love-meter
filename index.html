@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユウタ♡リナ ラブメーター</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff1744">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💖 ユウタ♡リナ ラブメーター 💖</h1>
+            <div class="love-counter">
+                <span>Love Level: </span>
+                <span id="loveValue">0</span>
+                <span>/100</span>
+            </div>
+        </header>
+
+        <main class="game-area">
+            <!-- ユウタ（左側） -->
+            <div class="character" id="yuuta">
+                <div class="character-body">
+                    <div class="character-head">
+                        <div class="eyes">
+                            <div class="eye left-eye">
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="eye right-eye">
+                                <div class="pupil"></div>
+                            </div>
+                        </div>
+                        <div class="mouth"></div>
+                    </div>
+                    <div class="character-body-torso"></div>
+                </div>
+                <div class="character-name">ユウタ</div>
+                <div class="speech-bubble" id="yuuta-speech">頑張ろう！</div>
+            </div>
+
+            <!-- 中央のハート -->
+            <div class="heart-container">
+                <div class="heart" id="mainHeart">
+                    <div class="heart-inner">💖</div>
+                </div>
+                <div class="click-message">クリックしてね！</div>
+            </div>
+
+            <!-- リナ（右側） -->
+            <div class="character" id="rina">
+                <div class="character-body">
+                    <div class="character-head">
+                        <div class="hair"></div>
+                        <div class="eyes">
+                            <div class="eye left-eye">
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="eye right-eye">
+                                <div class="pupil"></div>
+                            </div>
+                        </div>
+                        <div class="mouth"></div>
+                    </div>
+                    <div class="character-body-torso"></div>
+                </div>
+                <div class="character-name">リナ</div>
+                <div class="speech-bubble" id="rina-speech">きゃー♡</div>
+            </div>
+        </main>
+
+        <!-- エフェクト用のコンテナ -->
+        <div class="effects-container" id="effectsContainer"></div>
+        
+        <!-- 最終演出用の隠し要素 -->
+        <div class="final-celebration" id="finalCelebration">
+            <div class="celebration-text">💕 ぎゅっ！ 💕</div>
+            <div class="heart-rain"></div>
+        </div>
+    </div>
+
+    <audio id="clickSound" preload="auto">
+        <source src="click.mp3" type="audio/mpeg">
+        <source src="click.wav" type="audio/wav">
+    </audio>
+    
+    <audio id="finalSound" preload="auto">
+        <source src="final.mp3" type="audio/mpeg">
+        <source src="final.wav" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

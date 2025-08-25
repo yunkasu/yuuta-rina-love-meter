@@ -14,6 +14,8 @@ class LoveMeter {
             rinaSpeech: document.getElementById('rina-speech'),
             effectsContainer: document.getElementById('effectsContainer'),
             finalCelebration: document.getElementById('finalCelebration'),
+            babyArrival: document.getElementById('babyArrival'),
+            fireworksContainer: document.getElementById('fireworksContainer'),
             clickSound: document.getElementById('clickSound'),
             finalSound: document.getElementById('finalSound')
         };
@@ -233,11 +235,17 @@ class LoveMeter {
             this.playFinalSound();
             this.createHeartRain();
             this.addFinalCharacterAnimation();
+            this.startFireworksShow();
+            
+            // 赤ちゃん「くおん」の登場演出
+            setTimeout(() => {
+                this.showBabyArrival();
+            }, 2000);
             
             setTimeout(() => {
                 this.elements.finalCelebration.style.display = 'none';
                 this.isAnimating = false;
-            }, 5000);
+            }, 8000);
         }, 1000);
     }
     
@@ -279,7 +287,117 @@ class LoveMeter {
         setTimeout(() => {
             this.elements.yuuta.style.animation = '';
             this.elements.rina.style.animation = '';
-        }, 5000);
+        }, 8000);
+    }
+    
+    showBabyArrival() {
+        this.elements.babyArrival.style.display = 'flex';
+        
+        // 特別なメッセージ表示
+        setTimeout(() => {
+            this.showSpeech('yuuta', 'くおんちゃん、こんにちは！');
+        }, 1000);
+        
+        setTimeout(() => {
+            this.showSpeech('rina', 'かわいい赤ちゃん♡');
+        }, 1500);
+        
+        // より盛大な花火を追加
+        setTimeout(() => {
+            this.createSuperFireworks();
+        }, 500);
+    }
+    
+    startFireworksShow() {
+        // 継続的な花火エフェクト
+        const fireworkInterval = setInterval(() => {
+            this.createFirework();
+        }, 300);
+        
+        setTimeout(() => {
+            clearInterval(fireworkInterval);
+        }, 7000);
+    }
+    
+    createFirework() {
+        const container = this.elements.fireworksContainer;
+        const colors = ['#ff1744', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+        
+        // ランダムな位置に花火を配置
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * (window.innerHeight * 0.6) + window.innerHeight * 0.1;
+        
+        // 花火の軌跡を作成
+        const trail = document.createElement('div');
+        trail.className = 'firework-trail';
+        trail.style.left = x + 'px';
+        trail.style.top = window.innerHeight + 'px';
+        trail.style.setProperty('--trail-color', colors[Math.floor(Math.random() * colors.length)]);
+        container.appendChild(trail);
+        
+        // 爆発エフェクト
+        setTimeout(() => {
+            this.createFireworkExplosion(x, y, colors[Math.floor(Math.random() * colors.length)]);
+        }, 1000);
+        
+        // クリーンアップ
+        setTimeout(() => {
+            if (trail.parentNode) {
+                trail.parentNode.removeChild(trail);
+            }
+        }, 2000);
+    }
+    
+    createFireworkExplosion(x, y, color) {
+        const container = this.elements.fireworksContainer;
+        
+        // 中心の爆発
+        const explosion = document.createElement('div');
+        explosion.className = 'firework';
+        explosion.style.left = x + 'px';
+        explosion.style.top = y + 'px';
+        explosion.style.background = color;
+        explosion.style.boxShadow = `0 0 20px ${color}`;
+        container.appendChild(explosion);
+        
+        // 放射状の火花を作成
+        for (let i = 0; i < 12; i++) {
+            const angle = (i * 30) * Math.PI / 180;
+            const distance = 50 + Math.random() * 50;
+            const sparkX = Math.cos(angle) * distance;
+            const sparkY = Math.sin(angle) * distance;
+            
+            const spark = document.createElement('div');
+            spark.className = 'firework-spark';
+            spark.style.left = x + 'px';
+            spark.style.top = y + 'px';
+            spark.style.background = color;
+            spark.style.setProperty('--spark-x', sparkX + 'px');
+            spark.style.setProperty('--spark-y', sparkY + 'px');
+            container.appendChild(spark);
+            
+            setTimeout(() => {
+                if (spark.parentNode) {
+                    spark.parentNode.removeChild(spark);
+                }
+            }, 2000);
+        }
+        
+        setTimeout(() => {
+            if (explosion.parentNode) {
+                explosion.parentNode.removeChild(explosion);
+            }
+        }, 1500);
+    }
+    
+    createSuperFireworks() {
+        // 赤ちゃん登場時の特別な花火
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => {
+                this.createFirework();
+                this.createFirework();
+            }, i * 200);
+        }
     }
     
     startRandomSpeech() {
